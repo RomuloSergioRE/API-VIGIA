@@ -1,5 +1,5 @@
 import express from "express";
-import users from "./userRoute.js";
+import user from "./userRoute.js";
 import clients from "./clientRoute.js";
 import auth from "./authRoute.js"
 
@@ -10,7 +10,7 @@ const routes = (app)=>{
     app.use(
         express.json(),
         auth,
-        users,
+        user,
         clients,
     )
 }

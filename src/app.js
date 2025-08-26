@@ -11,12 +11,14 @@ db.authenticate().then(() => {
 }).catch((error) => {
     console.error('Unable to connect to the database: ', error);
 });
-//romulo@gmail.com
-//123
-//ana@gmail.com
-//12345
-//joao_carlos@gmail.com
-//12345336
+//db.sync({alter: true})
+
+// userCreate.create({
+//     name: "ana",
+//     email: "ana@gmail.com",
+//     password: "12345"
+// })
+
 // {
 //     "name": "",
 //     "data": "",
@@ -25,13 +27,6 @@ db.authenticate().then(() => {
 //     "paymentAmount": ,
 //     "status": ""
 // }
-//db.sync({force: true})
-
-// User.create({
-//     name: "ana",
-//     email: "ana@gmail.com",
-//     password: "12345"
-// })
 
 
 // Client.create({

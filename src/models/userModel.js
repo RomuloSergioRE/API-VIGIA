@@ -21,6 +21,10 @@ const User = db.define('users',{
         type: Sequelize.STRING,
         allowNull: false
     },
+    admin:{
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+    },
 })
 
 User.hasMany(Client, {
