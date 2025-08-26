@@ -26,7 +26,11 @@ class UserController {
     }
     static getUserId = async function (req, res) {
         try {
-            user.id = req.params.id
+            if (req.url === "/auth/user") {
+                user.id = req.id
+            } else {
+                user.id = req.params.id
+            }
 
             const userData = await Users.findOne({
                 where: {
@@ -69,28 +73,36 @@ class UserController {
                 res.status(409).json({
                     message: "user already exists"
                 })
-            } else {
-                Users.create({
-                    name: user.name,
-                    email: user.email,
-                    password: hashPassword,
-                    admin: user.admin
-                }).then(function (user) {
-                    var token = jwt.sign({ id: user.user_id }, config.secretKey, { expiresIn: 86400 });
-                    res.status(201).json({
-                        message: "user created successfully",
-                        auth: true,
-                        token: token
-                    })
-                })
             }
+            const creatUser = await Users.create({
+                name: user.name,
+                email: user.email,
+                password: hashPassword,
+                admin: user.admin
+            })
+            if (creatUser) {
+                var token = jwt.sign({ id: user.user_id }, config.secretKey, { expiresIn: 86400 });
+                res.status(201).json({
+                    message: "user created successfully",
+                    auth: true,
+                    token: token
+                })
+            } else {
+                res.status(201).json({ message: "user not created" })
+            }
+
+
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
     }
     static updateUser = async function (req, res) {
         try {
-            user.id = req.params.id
+            if (req.url === "/auth/user") {
+                user.id = req.id
+            } else {
+                user.id = req.params.id
+            }
             user.name = req.body.name
             user.email = req.body.email
             user.password = req.body.password

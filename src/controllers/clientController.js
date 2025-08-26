@@ -113,7 +113,7 @@ class ClientController {
             if (checkClient) {
                 res.status(500).json({ message: "ja existe um usuario" })
             } else {
-                Clients.create({
+                const createClient = await Clients.create({
                     name: nameClient,
                     date: dateClient,
                     phone: phoneClient,
@@ -121,7 +121,8 @@ class ClientController {
                     paymentAmount: paymentAmountClient,
                     status: statusClient,
                     userId: user.id,
-                }).then(() => {
+                })
+                if (createClient) {
                     res.status(200).send({
                         message: "cliente criado com sucesso",
                         data: {
@@ -133,10 +134,12 @@ class ClientController {
                             status: statusClient,
                         }
                     })
-                })
+                }else{
+                    res.status(201).json({ message: "client not created" })
+                }
             }
         } catch (error) {
-            res.status(404).json({ message: error });
+            res.status(404).json({ message: error.message });
         }
     }
     //update um client

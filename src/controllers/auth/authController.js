@@ -23,7 +23,7 @@ class AuthController {
                 return res.status(401).send({ data: { auth: false, token: null, message: "incorrect password" } });
             }
 
-            const token = jwt.sign({ id: User.user_id, }, config.secretKey, {
+            const token = jwt.sign({ id: User.user_id, role: User.admin}, config.secretKey, {
                 expiresIn: 86400
             });
 
