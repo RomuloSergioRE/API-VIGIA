@@ -1,8 +1,9 @@
 import Users from "../models/userModel.js";
-import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from "../config/config.js";
 import user from "../utils/variables/user.js";
+import bcrypt from "bcryptjs";
+
 
 class UserController {
     static getAllUsers = async function (req, res) {
@@ -10,9 +11,16 @@ class UserController {
             const allUsers = await Users.findAll()
 
             if (allUsers) {
+
                 res.status(200).json({
                     message: "users found",
-                    data: allUsers
+                    data: allUsers.map((u)=>({ 
+                        id: u.user_id,
+                        name: u.name,
+                        email: u.email,
+                        admin: u.admin
+
+                    }))
                 })
             } else {
                 res.status(404).json({
@@ -40,7 +48,13 @@ class UserController {
             if (userData) {
                 res.status(200).json({
                     message: "user found successfully",
-                    data: userData
+                    data: {
+                        id: userData.user_id,
+                        name: userData.name,
+                        email: userData.email,
+                        admin: userData.admin
+
+                    }
 
                 })
             } else {
@@ -88,7 +102,7 @@ class UserController {
                     token: token
                 })
             } else {
-                res.status(201).json({ message: "user not created" })
+                res.status(404).json({ message: "user not created" })
             }
 
 

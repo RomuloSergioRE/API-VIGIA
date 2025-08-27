@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
-import config from "../../config/config.js";
-import Users from "../../models/userModel.js";
+import config from "../config/config.js";
+import Users from "../models/userModel.js";
 import jwt from "jsonwebtoken";
-import user from '../../utils/variables/user.js'
+import user from '../utils/variables/user.js'
 
 class AuthController {
     static Login = async function (req, res) {
