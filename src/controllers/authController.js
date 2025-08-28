@@ -32,7 +32,7 @@ class AuthController {
             });
 
             res.set('Authorization', 'Bearer ' + token);
-            res.status(200).send({
+            res.status(200).json({
                 message: "Login successful",
                 data: { auth: true, token: token }
             });
