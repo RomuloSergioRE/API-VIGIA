@@ -85,7 +85,7 @@ class UserController {
 
             if (checkUser) {
                 return res.status(409).json({
-                    message: "user already exists"
+                    message: "User already exists"
                 })
             }
             const creatUser = await Users.create({
@@ -97,7 +97,7 @@ class UserController {
             if (creatUser) {
                 var token = jwt.sign({ id: creatUser.user_id, role: creatUser.admin }, config.secretKey, { expiresIn: 86400 });
                 return res.status(201).json({
-                    message: "user created successfully",
+                    message: "User created successfully",
                     auth: true,
                     token: token
                 })

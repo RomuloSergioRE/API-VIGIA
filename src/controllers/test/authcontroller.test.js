@@ -42,7 +42,7 @@ describe('Auth Controller', () => {
         expect(res.body).toHaveProperty('data');
         expect(res.body.data.auth).toBe(true);
         expect(res.body.data.token).toBeDefined();
-        expect(res.body.message).toBe('Login successful');
+        expect(res.body.message).toBe(usersMock.successMessage.loginSuccess);
 
         const decoded = jwt.verify(res.body.data.token, config.secretKey);
 
@@ -63,7 +63,7 @@ describe('Auth Controller', () => {
         expect(res.body).toHaveProperty('data');
         expect(res.body.data.auth).toBe(true);
         expect(res.body.data.token).toBeDefined();
-        expect(res.body.message).toBe('Login successful');
+        expect(res.body.message).toBe(usersMock.successMessage.loginSuccess);
 
         const decoded = jwt.verify(res.body.data.token, config.secretKey);
 
@@ -84,7 +84,7 @@ describe('Auth Controller', () => {
         expect(res.body).toHaveProperty('data');
         expect(res.body.data).toBe(null);
         expect(res.body).toHaveProperty('message');
-        expect(res.body.message).toBe('User not found');
+        expect(res.body.message).toBe(usersMock.errorMessage.userNotFoundError);
 
 
     })
@@ -101,7 +101,7 @@ describe('Auth Controller', () => {
         expect(res.body).toHaveProperty('data');
         expect(res.body.data).toBe(null);
         expect(res.body).toHaveProperty('message');
-        expect(res.body.message).toBe('Incorrect password');
+        expect(res.body.message).toBe(usersMock.errorMessage.passwordError);
     })
     //OK
     it('POST(/auth/register) -> Deve cadastrar um usuario no sistema', async () => {
@@ -117,7 +117,7 @@ describe('Auth Controller', () => {
         expect(res.status).toBe(201)
         expect(res.body.auth).toBe(true);
         expect(res.body.token).toBeDefined();
-        expect(res.body.message).toBe('user created successfully');
+        expect(res.body.message).toBe(usersMock.successMessage.userCreated);
 
         const decoded = jwt.verify(res.body.token, config.secretKey);
         expect(decoded).toHaveProperty("id");
@@ -147,6 +147,6 @@ describe('Auth Controller', () => {
             })
 
         expect(res.status).toBe(409)
-        expect(res.body.message).toBe('user already exists');
+        expect(res.body.message).toBe(usersMock.errorMessage.userExistsError);
     })
 })
