@@ -1,0 +1,37 @@
+{
+  "adminUser": {
+    "name": "admin_test",
+    "email": "admin@teste.com",
+    "password": "admin123",
+    "admin": true
+  },
+  "normalUser": {
+    "name": "user_test",
+    "email": "user@teste.com",
+    "password": "user123",
+    "admin": false
+  },
+  "tempUser": {
+    "name": "temp_user",
+    "email": "temp@teste.com",
+    "password": "temp123",
+    "admin": false
+  },
+  "invalidUser": {
+    "email": "invalid@teste.com",
+    "password": "wrongpass"
+  },
+  "errorMessage": {
+    "emailError": "Incorrect email",
+    "passwordError": "Incorrect password",
+    "userExistsError": "User already exists",
+    "userNotFoundError": "User not found",
+    "userNotExistError": "User is not registered"
+  },
+  "successMessage": {
+    "loginSuccess": "Login successful",
+    "userCreated": "User created successfully",
+    "userDeleted": "User deleted successfully",
+    "userUpdated": "User updated successfully"
+  }
+}

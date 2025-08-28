@@ -15,23 +15,30 @@ class AuthController {
             }
         })
         if (!User) {
-            res.status(404).send({ message: "user not found" })
+            res.status(404).send({ message: "User not found", data: null })
         } else {
+            
             const checkPassword = bcrypt.compareSync(user.password, User.password)
 
             if (!checkPassword) {
-                return res.status(401).send({ data: { auth: false, token: null, message: "incorrect password" } });
+                return res.status(401).send({
+                    message: "Incorrect password",
+                    data: null
+                });
             }
 
-            const token = jwt.sign({ id: User.user_id, role: User.admin}, config.secretKey, {
+            const token = jwt.sign({ id: User.user_id, role: User.admin }, config.secretKey, {
                 expiresIn: 86400
             });
 
             res.set('Authorization', 'Bearer ' + token);
-            res.status(200).send({ 
-                data: { auth: true, token: token, message: "Login successful" } 
+            res.status(200).send({
+                message: "Login successful",
+                data: { auth: true, token: token }
             });
         }
+
+
 
     }
     static Logout = async function (req, res) {

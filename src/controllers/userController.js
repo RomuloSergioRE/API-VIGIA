@@ -14,7 +14,7 @@ class UserController {
 
                 res.status(200).json({
                     message: "users found",
-                    data: allUsers.map((u)=>({ 
+                    data: allUsers.map((u) => ({
                         id: u.user_id,
                         name: u.name,
                         email: u.email,
@@ -84,7 +84,7 @@ class UserController {
             })
 
             if (checkUser) {
-                res.status(409).json({
+                return res.status(409).json({
                     message: "user already exists"
                 })
             }
@@ -95,14 +95,14 @@ class UserController {
                 admin: user.admin
             })
             if (creatUser) {
-                var token = jwt.sign({ id: user.user_id }, config.secretKey, { expiresIn: 86400 });
-                res.status(201).json({
+                var token = jwt.sign({ id: creatUser.user_id, role: creatUser.admin }, config.secretKey, { expiresIn: 86400 });
+                return res.status(201).json({
                     message: "user created successfully",
                     auth: true,
                     token: token
                 })
             } else {
-                res.status(404).json({ message: "user not created" })
+                return res.status(404).json({ message: "user not created" })
             }
 
 
@@ -169,7 +169,7 @@ class UserController {
 
             if (delUser) {
                 res.status(200).json({
-                    message: `User with ID ${user.id} has been deleted.`,
+                    message: "user deleted successfully",
                 })
             } else {
                 res.status(404).json({
